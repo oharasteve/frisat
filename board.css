@@ -1,0 +1,46 @@
+select.Rank {
+  text-align: center;
+}
+
+select.Table {
+  text-align: center;
+}
+
+input.Rank {
+  display: none;
+  // width: 20px;
+}
+
+input.Name {
+  text-align: left;
+  width: 100px;
+}
+
+input.Race {
+  text-align: center;
+  width: 20px;
+}
+
+td {
+  text-align: center;
+}
+
+td.Slot {
+  text-align: right;
+  vertical-align: top;
+  width: 20px;
+  font-size: 8px;
+}
+
+td.Goto {
+  text-align: center;
+  vertical-align: top;
+}
+
+td.Left {
+  text-align: left;
+}
+
+td.Right {
+  text-align: right;
+}

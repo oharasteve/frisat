@@ -2,15 +2,20 @@
 <head>
   <link rel="stylesheet" type="text/css" href="board.css">
   <script src="plan32.js" language="javascript"></script>
+  <script src="logic.js" language="javascript"></script>
+  <script src="logic32.js" language="javascript"></script>
   <script src="rank.js" language="javascript"></script>
   <script src="board.js" language="javascript"></script>
+  <script src="fake.js" language="javascript"></script>
 </head>
 
 <body>
 
 <table cellpadding="0" cellspacing="0">
   <script language="javascript">
-    setup(plan32, advance32);  // Does all the work!
+    setup(plan32);  // Does all the work for creating the screen
+    logic32();      // Sets up all the winner / loser logic
+    fake(32);       // Fill in a bunch of fake data
   </script>
 </table>
 

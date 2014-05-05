@@ -1,8 +1,8 @@
 //
 // Create the whole screen
-// The parameters (plan, advance) are all passed in to allow for 16 or 32 players
+// The parameter (plan) is passed in to allow for 16 or 32 players
 //
-function setup(plan, advance) {
+function setup(plan) {
     for (row = 0; row < plan.length; row++) {
         document.write('  <tr>\n');
         var fixed = plan[row].replace(/ -. /g, ' -\\. ').     // Repair all the backslashes
@@ -18,16 +18,16 @@ function setup(plan, advance) {
                 putName(n);
             } else if (first == 'W') {
                 var n = parseInt(piece.substring(1, 3));
-                putWinner(advance, n, true);
+                putWinner(n, true);
             } else if (first == 'w') {
                 var n = parseInt(piece.substring(1, 3));
-                putWinner(advance, n, false);
+                putWinner(n, false);
             } else if (first == 'L') {
                 var n = parseInt(piece.substring(1, 3));
-                putLoser(advance, n, true);
+                putLoser(n);
             } else if (first == 'R') {
                 var n = parseInt(piece.substring(1, 3));
-                putLoser(advance, n, false);
+                copyWinner(n);
             } else if (first == 'G') {
                 var n = parseInt(piece.substring(1, 3));
                 document.write('    <td class="Goto" rowspan="2">Loser to ' + n + '</td>\n');
@@ -80,7 +80,7 @@ function putName(n) {
 //
 // Write all the html needed for a winning match
 //
-function putWinner(advance, n, playAgain) {
+function putWinner(n, playAgain) {
     document.write('    <td rowspan="2">&nbsp;' + n + ':\n');
     document.write('      <select class="Table">\n');
     document.write('        <option>Tbl</option>\n');
@@ -88,25 +88,10 @@ function putWinner(advance, n, playAgain) {
         document.write('        <option>#' + tbl + '</option>\n');
     }
     
-    // Look where the winner of this match goes (e.g., winner of 1,2 is 25
-    var tb;
-    var w;
-    for (var i=0; i<advance.length; i++) {
-        if (advance[i][0] == n) {
-            tb = "Top";
-            w = advance[i][2];
-            break;
-        } else if (advance[i][1] == n) {
-            tb = "Bot";
-            w = advance[i][2];
-            break;
-        }
-    }
-    
     document.write('      </select>\n');
     document.write('      <input class="Rank" id="RankTop-' + n + '" disabled type="text" value=""/>\n');
     document.write('      <input class="Rank" id="RankBot-' + n + '" disabled type="text" value=""/>\n');
-    document.write('      <select class="Name" id="Match-' + n + '" onchange="choseWinner(' + n + ',' + w + ',\'' + tb + '\');">\n');
+    document.write('      <select class="Name" id="Match-' + n + '">\n');
     document.write('        <option>Winner</option>\n');
     document.write('        <option id="PlayerTop-' + n + '"></option>\n');
     document.write('        <option id="PlayerBot-' + n + '"></option>\n');
@@ -120,15 +105,22 @@ function putWinner(advance, n, playAgain) {
 //
 // Put all the information for the loser of a match
 //
-function putLoser(advance, n, isLeft) {
-    if (isLeft) {
-        document.write('    <td class="Left" rowspan="2">&nbsp;L' + n + ':\n');
-    } else {
-        document.write('    <td class="Right" rowspan="2">&nbsp;W' + n + ':\n');
-    }
-    document.write('      <input class="Rank" disabled type="text" value=""/>\n');
-    document.write('      <input class="Name" disabled type="text" value=""/>\n');
-    document.write('      <input class="Race" type="text" value="&nbsp;"/>&nbsp;\n');
+function putLoser(n) {
+    document.write('    <td class="Left" rowspan="2">&nbsp;L' + n + ':\n');
+    document.write('      <input class="Rank" id="LoserRank-' + n + '" disabled type="text" value=""/>\n');
+    document.write('      <input class="Name" id="LoserName-' + n + '" disabled type="text" value=""/>\n');
+    document.write('      <input class="Race" id="LoserRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+    document.write('    </td>\n');
+}
+
+//
+// Put all the information for the winner of a loser bracket
+//
+function copyWinner(n) {
+    document.write('    <td class="Right" rowspan="2">&nbsp;W' + n + ':\n');
+    document.write('      <input class="Rank" id="CopyRank-' + n + '" disabled type="text" value=""/>\n');
+    document.write('      <input class="Name" id="CopyName-' + n + '" disabled type="text" value=""/>\n');
+    document.write('      <input class="Race" id="CopyRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
     document.write('    </td>\n');
 }
 
@@ -160,29 +152,4 @@ function setMatch(m, n) {
     var TargetRankBot = document.getElementById("RankBot-" + match);
     TargetRankTop.value = RankTop.value;
     TargetRankBot.value = RankBot.value;
-}
-
-//
-// For a match (except round 1), picked a winner
-//
-function choseWinner(n, w, tb) {
-    var match = document.getElementById("Match-" + n);
-    var winnerIndex = match.selectedIndex;
-    if (winnerIndex == 1) {
-        var rank = document.getElementById("RankTop-" + n);
-        var winner = document.getElementById("PlayerTop-" + n);
-        var rankW = document.getElementById("Rank" + tb + "-" + w);
-        var matchW = document.getElementById("Player" + tb + "-" + w);
-        rankW.value = rank.value;
-        matchW.text = winner.text;
-    } else if (winnerIndex == 2) {
-        var rank = document.getElementById("RankBot-" + n);
-        var winner = document.getElementById("PlayerBot-" + n);
-        var rankW = document.getElementById("Rank" + tb + "-" + w);
-        var matchW = document.getElementById("Player" + tb + "-" + w);
-        rankW.value = rank.value;
-        matchW.text = winner.text;
-    } else {
-        // Clear
-    }
 }

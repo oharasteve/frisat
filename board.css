@@ -7,8 +7,8 @@ select.Table {
 }
 
 input.Rank {
-  display: none;
-  //width: 20px;  // for debugging
+  //display: none;
+  width: 20px;  // for debugging
 }
 
 input.Name {

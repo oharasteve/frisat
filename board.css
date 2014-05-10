@@ -1,3 +1,7 @@
+select {
+  font-size: 18px;
+}
+
 select.Rank {
   text-align: center;
 }
@@ -7,22 +11,26 @@ select.Table {
 }
 
 input.Rank {
-  //display: none;
-  width: 20px;  // for debugging
+  display: none;
+  //width: 20px;  // for debugging
 }
 
 input.Name {
   text-align: left;
+  font-size: 20px;
   width: 100px;
+  background-color: white;
 }
 
 input.Race {
   text-align: center;
   width: 20px;
+  font-size: 18px;
 }
 
 td {
   text-align: center;
+  font-size: 18px;
 }
 
 td.Slot {

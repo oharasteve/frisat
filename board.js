@@ -1,8 +1,8 @@
 //
 // Create the whole screen
-// The parameter (plan) is passed in to allow for 16 or 32 players
+// The parameters (plan and advance) are passed in to allow for 16 or 32 players
 //
-function setup(plan) {
+function doPlan(plan) {
     for (row = 0; row < plan.length; row++) {
         document.write('  <tr>\n');
         var fixed = plan[row].replace(/ -. /g, ' -\\. ').     // Repair all the backslashes
@@ -60,9 +60,11 @@ function setup(plan) {
 //
 function putName(n) {
     var odd = (n % 2 == 0 ? n-1 : n);
+    var even = odd + 1;
     
     document.write('    <td rowspan="2">\n');
-    document.write('      <select class="Rank" id="Rank-' + n + '" onchange="setMatch(' + odd + ',' + (odd+1) + ');">\n');
+    document.write('      <select class="Rank" id="Rank-' + n + '" ' +
+        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');">\n');
     document.write('        <option>Rank</option>\n');
     document.write('        <option>C</option>\n');
     document.write('        <option>B</option>\n');
@@ -72,7 +74,8 @@ function putName(n) {
     document.write('        <option>SP</option>\n');
     document.write('        <option>PRO</option>\n');
     document.write('      </select>\n');
-    document.write('      <input class="Name" id="Name-' + n + '" onchange="setMatch(' + odd + ',' + (odd+1) + ');" type="text" value=""/>\n');
+    document.write('      <input class="Name" id="Name-' + n + '" ' +
+        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');" type="text" value=""/>\n');
     document.write('      <input class="Race" id="Race-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
     document.write('    </td>\n');
 }
@@ -97,7 +100,7 @@ function putWinner(n, playAgain) {
     document.write('        <option id="PlayerBot-' + n + '"></option>\n');
     document.write('      </select>\n');
     if (playAgain) {
-        document.write('      <input class="Race" type="text" value="&nbsp;"/>&nbsp;\n');
+        document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
     }
     document.write('    </td>\n');
 }
@@ -120,16 +123,14 @@ function copyWinner(n) {
     document.write('    <td class="Right" rowspan="2">&nbsp;W' + n + ':\n');
     document.write('      <input class="Rank" id="CopyRank-' + n + '" disabled type="text" value=""/>\n');
     document.write('      <input class="Name" id="CopyName-' + n + '" disabled type="text" value=""/>\n');
-    document.write('      <input class="Race" id="CopyRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+    document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
     document.write('    </td>\n');
 }
 
 //
 // Given a pair of players(m,n), find the race between them (5/3) and update the chooser, etc
 //
-function setMatch(m, n) {
-    var match = n / 2;
-
+function setMatch(match, m, n) {
     // Update the race targets
     var RaceTop = document.getElementById("Race-" + m);
     var RaceBot = document.getElementById("Race-" + n);

@@ -6,7 +6,8 @@ function advance(n,                   // Match number
         loserFaces                    // Loser of this matches faces whom? Negative for facing the loser
         ) {
     var match = document.getElementById('Match-' + n);
-    var func = 'advanceWinner(' + n + ',' + winnerMatch + ',"' + winnerTopBot + '");';
+    var func = 'setDirty();';
+    func = func + 'advanceWinner(' + n + ',' + winnerMatch + ',"' + winnerTopBot + '");';
     // var odd = (n % 2 == 0 ? n-1 : n);
     // var even = odd + 1;
     

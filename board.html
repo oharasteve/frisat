@@ -1,6 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="board.css">
+  <script src="dirty.js" language="javascript"></script>
   <script src="plan32.js" language="javascript"></script>
   <script src="rank.js" language="javascript"></script>
   <script src="board.js" language="javascript"></script>
@@ -16,9 +17,10 @@
   <script language="javascript">
     doPlan(plan32);       // Does all the work for creating the screen
     advance32();          // Manage all the winner / loser advancements
-    fake(32, 55);         // Fill in a bunch of fake data (55 matches)
   </script>
 </table>
 
+<input class="Action" title="Create some fake data" type="button" value="Fake Data" onclick="fake(32, 55);">
+<input class="Action" id="SaveButton" title="Save results so far" disabled type="button" value="Save" onclick="save();">
 </body>
 </html>

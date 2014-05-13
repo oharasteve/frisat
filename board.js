@@ -64,7 +64,7 @@ function putName(n) {
     
     document.write('    <td rowspan="2">\n');
     document.write('      <select class="Rank" id="Rank-' + n + '" ' +
-        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');">\n');
+        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');setDirty();">\n');
     document.write('        <option>Rank</option>\n');
     document.write('        <option>C</option>\n');
     document.write('        <option>B</option>\n');
@@ -75,8 +75,8 @@ function putName(n) {
     document.write('        <option>PRO</option>\n');
     document.write('      </select>\n');
     document.write('      <input class="Name" id="Name-' + n + '" ' +
-        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');" type="text" value=""/>\n');
-    document.write('      <input class="Race" id="Race-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+        'onchange="setMatch(' + (even/2) + ',' + odd + ',' + even + ');setDirty();" type="text" value=""/>\n');
+    document.write('      <input class="Race" id="Race-' + n + '" type="text" value="&nbsp;" onchange="setDirty()"/>&nbsp;\n');
     document.write('    </td>\n');
 }
 
@@ -100,7 +100,7 @@ function putWinner(n, playAgain) {
     document.write('        <option id="PlayerBot-' + n + '"></option>\n');
     document.write('      </select>\n');
     if (playAgain) {
-        document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+        document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;" onchange="setDirty()"/>&nbsp;\n');
     }
     document.write('    </td>\n');
 }
@@ -112,7 +112,7 @@ function putLoser(n) {
     document.write('    <td class="Left" rowspan="2">&nbsp;L' + n + ':\n');
     document.write('      <input class="Rank" id="LoserRank-' + n + '" disabled type="text" value=""/>\n');
     document.write('      <input class="Name" id="LoserName-' + n + '" disabled type="text" value=""/>\n');
-    document.write('      <input class="Race" id="LoserRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+    document.write('      <input class="Race" id="LoserRace-' + n + '" type="text" value="&nbsp;" onchange="setDirty()"/>&nbsp;\n');
     document.write('    </td>\n');
 }
 
@@ -123,7 +123,7 @@ function copyWinner(n) {
     document.write('    <td class="Right" rowspan="2">&nbsp;W' + n + ':\n');
     document.write('      <input class="Rank" id="CopyRank-' + n + '" disabled type="text" value=""/>\n');
     document.write('      <input class="Name" id="CopyName-' + n + '" disabled type="text" value=""/>\n');
-    document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;"/>&nbsp;\n');
+    document.write('      <input class="Race" id="MatchRace-' + n + '" type="text" value="&nbsp;" onchange="setDirty()"/>&nbsp;\n');
     document.write('    </td>\n');
 }
 

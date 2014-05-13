@@ -1,4 +1,8 @@
 function fake(n, matches) {
+    if (keepChanges()) {
+        return;
+    }
+    
     for (var i = 1; i <= n; i++) {
         var name = document.getElementById("Name-" + i);
         name.value = "person " + i;

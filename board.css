@@ -28,6 +28,10 @@ input.Race {
   font-size: 18px;
 }
 
+input.Action {
+  font-size: 36px;
+}
+
 td {
   text-align: center;
   font-size: 18px;

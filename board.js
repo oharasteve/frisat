@@ -85,7 +85,7 @@ function putName(n) {
 //
 function putWinner(n, playAgain) {
     document.write('    <td rowspan="2">&nbsp;' + n + ':\n');
-    document.write('      <select class="Table">\n');
+    document.write('      <select id="Table-' + n + '" class="Table">\n');
     document.write('        <option>Tbl</option>\n');
     for (var tbl = 12; tbl >= 2; tbl--) {
         document.write('        <option>#' + tbl + '</option>\n');
